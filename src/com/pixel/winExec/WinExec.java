@@ -13,8 +13,8 @@ public class WinExec {
 		 
 	      String command = "C:\\PSTools\\psexec \\\\113.128.161.154 java "
 		    		+ "-Durl=http://localhost:8983/solr/techproducts/update/extract "
-		    		+ "-Dparams=literal.id=html1 -jar C:\\post.jar "
-		    		+ "C:\\Users\\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs\\"+file;		      
+		    		+ "-Dparams=literal.id="+file+"html1 -jar C:\\post.jar "
+		    		+ "C:\\Users\\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs"+file;		      
 	         Process process = Runtime.getRuntime().exec(command);
 	         
 	         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));

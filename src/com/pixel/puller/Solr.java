@@ -24,7 +24,7 @@ public class Solr {
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);
 		WebTarget target = client.target("http://113.128.161.154:8983/solr")
-				.path("techproducts").path("browse").queryParam("q", "any").queryParam("wt", "json");
+				.path("techproducts").path("browse").queryParam("q", "Contract").queryParam("wt", "json").queryParam("hl", "true").queryParam("hl.fl", "content").queryParam("fl", "text").queryParam("facet", "false").queryParam("responseHeader", "false");
 		// getting String data
 		jsonString = target.request(MediaType.TEXT_PLAIN).get(String.class);
 		//System.out.println(jsonString);
@@ -32,7 +32,7 @@ public class Solr {
 //		jsonString="{\"accountNo\":[\"501\",\"502\",\"503\"],\"totalNumOfAcc\":\"3\"}";	
 		return jsonString;
 	}
-
+//	http://113.128.161.154:8983/solr/techproducts/browse?&q=any&wt=json&hl=true&hl.fl=content&fl=text&facet=false&responseHeader=false
 	public String getJsonString() {
 		return jsonString;
 	}
