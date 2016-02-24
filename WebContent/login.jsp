@@ -21,11 +21,11 @@
 	<div class="container">
 		<h1>Welcome</h1>
 		
-		<form class="form" action="index.jsp" method="post">
-			<input type="text" placeholder="Username">
-			<input type="password" placeholder="Password">
-			<br><button type="submit"  id="login-button">Login</button>
-			<button type="submit" id="login-button">Login as a Guest</button>
+		<form class="form" action="LoginValidation.java" method="post"   name ="login_form">
+			<input type="text" placeholder="Username" name="username" />
+			<input type="password" placeholder="Password" name="password" />
+			<br><button type="submit"  id="login-button" >Login</button>
+			<!--  <button type="submit" id="login-button2">Login as a Guest</button> -->
 		</form>
 	</div>
 	

@@ -3,10 +3,9 @@
 <%@ page language="java" contentType="application/json; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <% 		
-String d=request.getParameter("d");
-
-Solr solr=new Solr();
-	JsonArray json=solr.JsonGet(d);
+	String d=request.getParameter("d");
+	Solr solr=new Solr();
+	String json=solr.JsonGet(d);
 	//out.print(d);
 	out.print(json.toString());
-	%>
+%>

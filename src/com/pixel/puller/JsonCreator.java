@@ -27,6 +27,7 @@ public class JsonCreator {
 		ArrayList<String> id=new ArrayList<String>();
 		EnvVariables envvar=new EnvVariables();
 //		path=path+"/";
+		path=path.substring(path.lastIndexOf("=")+1);
 		String pathid=path;
 		String folderId="";
 		if(pathid.equals("home/"))
@@ -43,7 +44,9 @@ public class JsonCreator {
 
 		File[] files = new File(path).listFiles();
 		//If this pathname does not denote a directory, then listFiles() returns null. 
-
+if(files==null){
+	return "[]";
+}
 		for (File file : files) {
 		    if (file.isFile()||file.isDirectory()) {
 		    	if(file.isHidden())continue;
@@ -68,7 +71,7 @@ public class JsonCreator {
 			//string="child";
 			String query="SELECT dtl.node_name, dtl.node_type, dtl.node_loc, dtl.node_vrsn, dtl.create_dttm, nlog.chng_user, nlog.max_dttm from pixeltm.NODE_DTL dtl join ( SELECT node_id, chng_user, insert_dttm, MAX(insert_dttm) as max_dttm from pixeltm.NODE_LOG where node_id='"+string+"') nlog on dtl.node_id=nlog.node_id where dtl.node_id='"+string+"' and nlog.insert_dttm=max_dttm";
 			ResultSet rs=help.Query(query);
-			rs.next();
+			if(rs.next()){
 			path=rs.getString("dtl.node_loc");						//from db
 			filename=rs.getString("dtl.node_name");					//from db
 			last_modified=rs.getString("nlog.max_dttm");			//from db
@@ -86,6 +89,8 @@ public class JsonCreator {
 			innerjson.add("version", version);
 			innerjson.add("type", type);
 			jsontoSend.add(innerjson.build());
+			}
+
 			//break;
 		}
 		String jsonObj=jsontoSend.build().toString();

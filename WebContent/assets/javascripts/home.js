@@ -17,7 +17,7 @@ var toastWarningMessage = [{"message":"File is not yet committed!"},
                     ];
 
 init.push(function () {
-	
+	/*
 	$('#page-alerts-demo').on('click', 'button', function () {
 		var $this = $(this);
 		// Go to the top
@@ -40,7 +40,7 @@ init.push(function () {
 			}
 		}, 800);
 	});
-	
+	*/
 	
 	$('#divCreate ul.dropdown-menu a').not('#linkCreateFolder').on('click', function() {
 		var $modal  = $('#divCreateDoc');
@@ -130,14 +130,17 @@ $(document).ready(function(){
 	
 	$('input#upload-btn').pixelFileInput({ placeholder: 'No file selected...' });
 	
-	function init() {
+	/*
+	function fileupload_init() {
 		document.getElementById('file_upload_form').onsubmit=function() {
 			document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
 		}
 	}
-	window.onload=init;
-		
-	getDocs2();
+	 */
+	
+	initLinkProp($("#mainMenu li a"));
+	
+	getDocs("home");
     //var myHilitor = new Hilitor("divContent");
 	//myHilitor.apply("Kumar");
 	
@@ -149,36 +152,54 @@ $(document).ready(function(){
 				if (result === null) {                                             
 					//Cancelled                              
 				} else {
+					
+					/*
 					$('html,body').animate({ scrollTop: 0 }, 500);
 					var options = {
 						type: 'success',
 						namespace: 'pa_page_alerts_default'
 					};
 					options['auto_close'] = 5; // seconds
-					//PixelAdmin.plugins.alerts.add("<i class=\"fa fa-check-circle\"></i> '"+ result +"' folder has been created successfully!", options);
+					PixelAdmin.plugins.alerts.add("<i class=\"fa fa-check-circle\"></i> '"+ result +"' folder has been created successfully!", options);
+					*/
+					
 					
 					$.ajax({
 						url :"CvsCreateFolder",
 						type:"post",
 						data :{"path":_path,"name":result},
 						success:function(res){
+							var res1 = {
+									"id": "1",
+									"name": result,
+									"last_modified": "2015-04-01T14:39:58Z",
+									"last_modified_by": "NameModifier",
+									"created_on": "2015-04-01T14:39:58Z",
+									"version": "1.2.1",
+									"type":"folder"
+							};
+							
+							alertSuccess("'"+ result +"' folder has been created successfully!");
+							
+							//vzDriveTable.row.add(res1);
+					    	//vzDriveTable.draw();
 							
 						},
 						error:function(e){
 							
 						}
 					});
+			
 				}
 			},
 			className: "bootbox-sm"
 		});
 	});
 	
-	
-	
-
 	$('#linkUpload').click(function(){
-		$('#divUploadModal').modal('show');
+		$('#divUploadModal').find("#txtPath").val(_path);
+		var m = $('#divUploadModal').modal('show');
+		//$('#divUploadModal').find('.modal-footer').find('input[type="submit"]')
 		/*
 	  	$('.modal-body').empty();
 	  	var title = $(this).parent('a').attr("title");
@@ -188,7 +209,47 @@ $(document).ready(function(){
 	  	*/
 	});
 	
-
+	/*
+	window.onload=function(){
+		document.getElementById('file_upload_form').onsubmit=function() {
+			document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
+			
+		}
+	};
+	*/
+	$(function(){
+	    $('#file_upload_form').on('submit', function(e){
+	    	document.getElementById('file_upload_form').target = 'upload_target';
+	    	if($("#upload-btn").val()=="") {
+	    		alert("Please select a file and upload");
+	    		return false;
+	    	}
+	    	$('#divUploadModal').modal('hide');
+	    	//Add the file in table
+	    	alertSuccess("'Docname' has been uploaded successfully!");
+	    	//$("#divTblDocs").find("table.vzDriveTable");
+	    	//vzDriveTable.rows.add(["<i class=\"menu-icon fa fa-file-excel-o\"></i>","<a href=\"javascript:void(0);\" rel="" title=\"ExcelDemo3.xlsx\">ExcelDemo3.xlsx</a><div style="display: none;" id="divProp_11" class="panel-heading-controls"><button rel="11" class="btn btn-sm btn-default btn-outline"><span class="fa fa-file-text-o"></span></button><button rel="11" class="btn btn-sm btn-default btn-outline"><span class="fa fa-pencil fa-fw"></span></button><button rel="11" class="btn btn-xs btn-danger btn-outline"><span class="fa fa fa-trash-o fa-fw"></span></button><button rel="11" class="btn btn-xs btn-default btn-outline"><span class="fa fa-lock"></span></button></div></td><td>2015-04-01T14:39:58Z</td><td>NameModifier</td><td>2015-04-01T14:39:58Z</td></tr>"]);
+	    	//vzDriveTable.draw();
+	    	return true;
+	    });
+	});
 	
+	//var ids = [];
+    $("form").each(function () {
+        //ids.push(this.id);
+        $(this).validate();
+    });
 
 });
+
+
+
+function alertSuccess(m,delay){
+	$('html,body').animate({ scrollTop: 0 }, 500);
+	var options = {
+		type: 'success',
+		namespace: 'pa_page_alerts_default'
+	};
+	options['auto_close'] = delay || 5; // seconds
+	PixelAdmin.plugins.alerts.add("<i class=\"fa fa-check-circle\"></i> " + m, options);
+}

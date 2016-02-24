@@ -20,7 +20,7 @@
 	<link href="assets/css/rtl.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/themes.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/custom.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/dataurl.css" rel="stylesheet" type="text/css">
+	<!--  <link href="assets/css/dataurl.css" rel="stylesheet" type="text/css"> -->
 	
 	<!--[if lt IE 9]>
 		<script src="assets/javascripts/ie.min.js"></script>
@@ -151,7 +151,7 @@
 					
 				</div>
 			</div>
-			<ul class="navigation">
+			<ul id="mainMenu" class="navigation">
 				<li>
 					<a href="index.jsp"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Home</span></a>
 				</li>
@@ -182,7 +182,7 @@
 		
 		<ul class="breadcrumb breadcrumb-page" style="margin-top:-12px; float:left;">
 			<div class="breadcrumb-label text-light-gray" style="padding-right:10px;">You are here: </div>
-			<li class="active"><a href="index.jsp">Home</a></li>
+			<li class="active b-home"><a href="index.jsp">Home</a></li>
 		</ul>
 		<div class="page-header">
 			
@@ -218,7 +218,7 @@
 						
 						
 						<!-- Search field -->
-						<form onsubmit="return searchResults(this);" action="#" class="col-xs-12 col-sm-6" style="float:right;">
+						<form id="frmSearch" onsubmit="return searchResults(this);" action="#" class="col-xs-12 col-sm-6" style="float:right;">
 							<div class="input-group no-margin" style="float:right;">
 								<span class="input-group-addon" style="border:none;background: #fff;background: rgba(0,0,0,.05);"><i class="fa fa-search"></i></span>
 								<input type="text" placeholder="Search documents..." class="form-control no-padding-hr" style="border:none;background: #fff;background: rgba(0,0,0,.05);">
@@ -234,8 +234,10 @@
 				</div>
 			</div>
 		</div> <!-- / .page-header -->
-
+		
 		<div id="divContentContainer">
+				
+		
 			<div class="dropzone-box dz-clickable" id="dropzonejs-example" style="min-height:84px;">
 				<div class="dz-default dz-message">
 					<i class="fa fa-cloud-upload"></i>
@@ -246,28 +248,65 @@
 				</form>
 			</div>
 			
+			<br style="clear:both;" />
+			
+				<!-- 
+			<div class="col-md-3 col-sm-4">
+		      <p>
+		        <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-refresh fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-cog fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+		      </p>
+		    </div>
+			 -->
+			 
+			<div id="divTblDocsLoading" style="display:none;">
+				<p><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> Loading... Please wait...</p>
+			</div>
+			
 			<!-- Primary table -->
 			<div id="divTblDocs" class="table-primary">
-				<table id="tblDocs" class="table table-striped table-bordered"></table>
+							
+			</div>
+			
+			<table id="tblGetDocs" class="table table-striped table-hover" style="display:none;">
+				<thead>
+					<tr>
+						<th clas="no-sort">#</th>
+						
+						<th>Name</th>
+						<th>Modified</th>
+						<th>Modified By</th>
+						<th>Created</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<!-- / Primary table -->
+		</div>
+		
+		<div id="divSearchResultsLoading" style="display:none;">
+		<!-- Primary table -->
+			<div id="divTblSearchDocs" class="table-primary">
+				<table id="tblSearchDocs" class="table table-striped table-bordered"></table>
 				
-				<table id="tblGetDocs" class="table table-striped table-hover">
+				<table id="tblSearchGetDocs" class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th>#</th>
 							
-							<th>Name</th>
-							<th>Modified</th>
-							<th>Modified By</th>
-							<th>Created</th>
+							<th>Search Results</th>
+							
 						</tr>
 					</thead>
 					<tbody></tbody>
 				</table>
 			</div>
 			<!-- / Primary table -->
-		</div>
 		
-		<div id="divSearchResultsLoading" style="display:none;">Loading...</div>
+		</div>
 		<div id="divSearchResults"></div>
 		
 		<div id="divContent" style="display:none;">
@@ -307,10 +346,29 @@
 </div>
 <!-- / Modal -->
 		
-
+<!-- Modal -->
+<div id="divFileProp" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel"></h4>
+			</div>
+			<div class="modal-body">
+				
+			</div>
+			<div class="modal-footer">
+				<!--  <button type="button" class="btn btn-primary">Save changes</button> -->
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- / Modal -->
+		
 <!-- Start Modal Box -->
 
-<form id="file_upload_form" method="post" enctype="multipart/form-data" action="UploadServlet">			
+			
 <div id="divUploadModal" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -318,40 +376,46 @@
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<h3 class="modal-title">Upload Document</h3>
 			</div>
-			<div class="modal-body">
-				<div id="upload-form" class="form-group">
-					<input type="file" id="fileupload" name="img[]" class="file" data-url="UploadServlet" multiple />
-					<div id="upload" style="display: none;">Uploading..</div>
-					<div id="message"></div>
-					
-					<div class="row" style="margin-bottom:10px;">
-					<!-- 	<input id="upload-btn" type="file" /> -->
-						<input name="file" id="upload-btn" type="file" />
-					</div>
-					
-					<div class="row" style="margin-bottom:10px;">
-						<input id="txtGSAMID" class="form-control" type="text" placeholder="GSAM ID">
-					</div>
-					
-					<div class="row" style="margin-bottom:10px;">
-						<label for="comment">Version Comment:</label>
-						<textarea class="form-control" rows="5" id="comment"></textarea>
-					</div>
-	
-				</div>
-			</div>
 			
-			<div class="modal-footer">
-				<!-- <button class="btn btn-default" id="btnUploadModalSubmit">Submit</button> -->
-				<input class="btn btn-default" type="submit" name="action" value="Upload" />
-				<iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
-				<button class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-
+			<form id="file_upload_form" method="post" enctype="multipart/form-data" action="UploadServlet">
+			
+				<div class="modal-body">
+					<div id="upload-form" class="form-group">
+							<input type="file" id="fileupload" name="img[]" class="file" data-url="UploadServlet" multiple />
+							<div id="upload" style="display: none;">Uploading..</div>
+							<div id="message"></div>
+							
+							<div class="row" style="margin-bottom:10px;">
+							<!-- 	<input id="upload-btn" type="file" /> -->
+								<input name="file" id="upload-btn" type="file" />
+							</div>
+							
+							<div class="row" style="margin-bottom:10px;">
+								<input id="txtGSAMID" class="form-control" type="text" placeholder="GSAM ID">
+								<input id="txtPath" type="hidden" value="" />
+							</div>
+							
+							<div class="row" style="margin-bottom:10px;">
+								<label for="comment">Version Comment:</label>
+								<textarea class="form-control" rows="5" id="comment"></textarea>
+							</div>
+						
+					</div>
+				</div>
+				
+				<div class="modal-footer">
+					<!-- <button class="btn btn-default" id="btnUploadModalSubmit">Submit</button> -->
+					<input class="btn btn-default" type="submit" name="action" value="Upload" />
+					<iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+					<!--  <button class="btn btn-default" data-dismiss="modal">Close</button> -->
+				</div>
+				
+			</form>
+			
 		</div>
 	</div>
 </div>
-</form>
+
 <!-- End Modal Box -->
 		
 		
@@ -374,7 +438,8 @@
 <script src="assets/javascripts/upload/jqueryupload.js"></script>
 <!--  / Upload -->
 
-<script src="assets/javascripts/pace_min.js"></script>
+<script src="assets/javascripts/jquery.validate.min.js"></script>
+<!-- <script src="assets/javascripts/pace_min.js"></script>  -->
 
 <script type="text/javascript">
 	var _path = "<%= request.getParameter("path") %>";

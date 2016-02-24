@@ -52,7 +52,22 @@ public class SQLHelper {
 		}
 		return null;
 	}
-	
+	public int custom(String query) {
+//		if (where == null || where == "") {
+//			where = "1";
+//		}
+//
+//		String s = "select " + cName + " from " + tName + " where " + where;
+		//System.out.println(s);
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs1 = st.executeQuery(query);
+			return 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	public int UPDATE(String tName, String cName, String where) {
 		if (where == null || where == "") {
 			where = "1=1";

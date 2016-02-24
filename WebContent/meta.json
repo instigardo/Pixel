@@ -1,0 +1,69 @@
+[
+	{
+		"Node_id":"Quote/RTBPriceQuote-QUO-External-43018245-Rev0_Approved.pdf",
+		 "meta":
+				{
+				"cle":"SIT-Feb16-USA-PQSIT",
+				"vle":"MCI Communications Services, Inc. d/b/a VerizonBusiness Services",
+				"quote":"43018245",
+				"contract":"New",
+				"Nasp":"40APPL"
+				}
+	},
+	{
+		"Node_id":"Quote/TPriceQuote-QUO-External-42645470-Rev0_Approved.pdf",
+		 "meta":
+				{
+				"cle":"SIT-Feb16-USA-PQSIT",
+				"vle":"MCI Communications Services, Inc. d/b/a VerizonBusiness Services",
+				"quote":"42645470",
+				"contract":"J54614-00",
+				"Nasp":"40APPL"
+				}
+	},
+	{
+		"Node_id":"Quote/PriceQuote-QUO-External-35332556_ESA 3a.pdf",
+		 "meta":
+				{
+				"cle":"GCT_JULY_France_TC",
+				"vle":"Verizon France",
+				"quote":"35332556",
+				"contract":"",
+				"Nasp":"10JOJO"
+				}
+	},
+	{
+		"Node_id":"Contract/J56222-01-4619_WWSA_SOF.pdf",
+		 "meta":
+				{
+				"cle":"SIT-Feb16-USA-PQSIT",
+				"vle":"",
+				"quote":"42645470",
+				"contract":"J54614-00",
+				"Nasp":"40APPL"
+				}
+	},
+	{
+		"Node_id":"Contract/J05887-00-2916_ESA_Master_SOF.pdf",
+		 "meta":
+				{
+				"cle":"GCT_JULY_France_TC",
+				"vle":"Verizon France SAS",
+				"quote":"35332556",
+				"contract":"J05887-00",
+				"Nasp":"10JOJO"
+				}
+	},
+	{
+		"Node_id":"Contract/J56239-00_USSA_Contract.pdf",
+		 "meta":
+				{
+				"cle":"SIT-Feb16-USA-PQSIT",
+				"vle":"Verizon France SAS",
+				"quote":"43018245",
+				"contract":"56239-00",
+				"Nasp":"10JOJO"
+				}
+	}	
+]
+	

@@ -21,6 +21,9 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.pixel.helper.EnvVariables;
+import com.pixel.helper.SQLHelper;
+import com.pixel.puller.Solr;
 import com.pixel.winExec.WinExec;
 
 @WebServlet("/UploadServlet")
@@ -37,9 +40,19 @@ public class UploadServlet extends HttpServlet {
 		this.uploader = new ServletFileUpload(fileFactory);
 	}
 	WinExec exec=new WinExec();
+	SQLHelper help=new SQLHelper();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String getPath="path";
-		String getPath1=request.getParameter("fileName");
+		EnvVariables envvar=new EnvVariables();
+		Solr solr=new Solr();
+		String path="home/Contract";//request.getParameter("path");
+		System.out.println(path);
+
+		String pathid=path;
+		String folderId=pathid.substring(pathid.lastIndexOf("/")+1);
+		 path=path.replace("/", "\\");
+		 String fileloc=path.replace("home", envvar.getCvsPath());
+		 path=path.replace("home", envvar.getCvsDir());
+		
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
@@ -53,16 +66,31 @@ public class UploadServlet extends HttpServlet {
 				System.out.println("FileName="+fileItem.getName());
 				System.out.println("ContentType="+fileItem.getContentType());
 				System.out.println("Size in bytes="+fileItem.getSize());
-				System.out.println("String="+fileItem.getString());
+				//System.out.println("String="+fileItem.getString());
 				//	C:\Users\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs
 				if((fileItem.getFieldName()).equals("file")){
-					String fileName=fileItem.getName().substring(fileItem.getName().lastIndexOf("\\")+1);
-					File file = new File("\\\\113.128.161.154\\Users\\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs\\"+fileName);
+					String fileName=path+"\\"+fileItem.getName().substring(fileItem.getName().lastIndexOf("\\")+1);
+					String fileid=folderId+"\\"+fileItem.getName().substring(fileItem.getName().lastIndexOf("\\")+1);
+					fileloc=fileloc+"\\"+fileItem.getName().substring(fileItem.getName().lastIndexOf("\\")+1);
+					String name=fileItem.getName().substring(fileItem.getName().lastIndexOf("\\")+1);
+					System.out.println(fileloc);
+					File file = new File(fileName);
 					System.out.println("Absolute Path at server="+file.getAbsolutePath());
 					fileItem.write(file);
 
 					System.out.println("File "+fileItem.getName()+ " uploaded successfully.");
-					exec.indexDocs(fileName,getPath);
+					if(fileItem.getContentType().contains("pdf"))
+					//	exec.OCR(fileName,folderId);
+					exec.indexDocs(fileloc,folderId);
+			         help.INSERT("pixeltm.NODE_DTL", "'"+folderId+"/"+name+"','"+name+"','"+fileItem.getContentType()+"','"+pathid+"','1.2.1','saxenhi',null,'100',CURRENT_TIMESTAMP(0),null,'1','1',null");
+			         help.INSERT("pixeltm.NODE_LOG", "'"+folderId+"/"+name+"','create','saxenhi',CURRENT_TIMESTAMP(0)");
+			 		//Solr ac=new Solr();
+			 		//String str=ac.JsonGet("Contract");
+					//System.out.println(ac.JsonGet("Contract"));
+					//if(folderId.equals("Contract"))
+					//	exec.ParseContractDoc(str, fileName);
+					//else if(folderId.equals("Quote"))
+					//	exec.ParseQuoteDoc(str, fileName);
 				}
 			}
 		} catch (FileUploadException e) {

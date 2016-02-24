@@ -1,7 +1,7 @@
 package com.pixel.helper;
 
 public class EnvVariables {
-	String cvsServer="\\\\113.128.166.30";
+	String cvsServer="\\\\113.128.161.154";
 	public String getCvsServer() {
 		return cvsServer;
 	}
@@ -10,7 +10,7 @@ public class EnvVariables {
 		this.cvsServer = cvsServer;
 	}
 
-	String cvsPath="C:\\non_sox\\nonsoxent\\Presales\\vesdam";
+	String cvsPath="C:\\cvsdrive\\nonsoxent\\Presales\\vesdam";
 	public String getCvsPath() {
 		return cvsPath;
 	}
@@ -18,7 +18,7 @@ public class EnvVariables {
 	public void setCvsPath(String cvsPath) {
 		this.cvsPath = cvsPath;
 	}
-	String cvsDir="\\\\113.128.166.30\\non_sox\\nonsoxent\\Presales\\vesdam";
+	String cvsDir="\\\\113.128.161.154\\cvsdrive\\nonsoxent\\Presales\\vesdam";
 	public String getCvsDir() {
 		return cvsDir;
 	}

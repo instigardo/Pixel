@@ -56,7 +56,7 @@ public class CvsCreateFolder extends HttpServlet {
 			    		+ " md "+name+"\"";		      
 		         Process process = Runtime.getRuntime().exec(command);
 		         System.out.println(command);			         
-		         help.INSERT("pixeltm.NODE_DTL", "'"+folderId+"/"+name+"','"+name+"','folder','"+pathid+"','1.2.1','saxenhi',null,'100',CURRENT_TIMESTAMP(0),null");
+		         help.INSERT("pixeltm.NODE_DTL", "'"+folderId+"/"+name+"','"+name+"','folder','"+pathid+"','1.2.1','saxenhi',null,'100',CURRENT_TIMESTAMP(0),null,null,null");
 		         help.INSERT("pixeltm.NODE_LOG", "'"+folderId+"/"+name+"','create','saxenhi',CURRENT_TIMESTAMP(0)");		         
 		      } catch (IOException e) {
 		         e.printStackTrace();

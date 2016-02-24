@@ -8,13 +8,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>vzPixel Documents</title>
+	<title>Verizon Drive</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-	<!-- Open Sans font from Google CDN -->
 	<link href="assets/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css">
 
-	<!-- Pixel Admin's stylesheets -->
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/pixel-admin.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/widgets.min.css" rel="stylesheet" type="text/css">
@@ -29,7 +28,19 @@
 </head>
 
 
+<!-- 1. $BODY ======================================================================================
+	
+	Body
 
+	Classes:
+	* 'theme-{THEME NAME}'
+	* 'right-to-left'      - Sets text direction to right-to-left
+	* 'main-menu-right'    - Places the main menu on the right side
+	* 'no-main-menu'       - Hides the main menu
+	* 'main-navbar-fixed'  - Fixes the main navigation
+	* 'main-menu-fixed'    - Fixes the main menu
+	* 'main-menu-animated' - Animate main menu
+-->
 <body class="theme-default main-menu-animated">
 
 <script type="text/javascript">var init = [];</script>
@@ -38,7 +49,10 @@
 <div id="main-wrapper">
 
 
+<!-- 2. $MAIN_NAVIGATION ===========================================================================
 
+	Main navigation
+-->
 	<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
 		<!-- Main menu toggle -->
 		<button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button>
@@ -49,9 +63,7 @@
 
 				<!-- Logo -->
 				<a href="index.jsp" class="navbar-brand">
-					<!--  <div><img alt="Pixel Admin" src="assets/images/pixel-admin/main-navbar-logo.png"></div> -->
-					<!--  Verizon DAM -->
-					<span style="padding:10px 4px 10px 0px; display:inline-block;"><img alt="Pixel Admin" src="assets/images/pixel-admin/main-navbar-logo.png"></span>
+					<span style="padding:10px 4px 10px 0px; display:inline-block;"><img alt="Verizon Drive" src="assets/images/pixel-admin/main-navbar-logo.png"></span>
 				</a>
 
 				<!-- Main navbar toggle -->
@@ -67,7 +79,45 @@
 						<ul class="nav navbar-nav pull-right right-navbar-nav">
 
 							<li class="nav-icon-btn nav-icon-btn-danger dropdown">
+								<a href="#notifications" class="dropdown-toggle" data-toggle="dropdown" style="margin-top:5px;">
+									<span class="label">2</span>
+									<i class="nav-icon fa fa-bullhorn"></i>
+									<span class="small-screen-text">Notifications</span>
+								</a>
+
+								<!-- NOTIFICATIONS -->
 								
+								<!-- Javascript -->
+								<script>
+									init.push(function () {
+										$('#main-navbar-notifications').slimScroll({ height: 250 });
+									});
+								</script>
+								<!-- / Javascript -->
+
+								<div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
+									<div class="notifications-list" id="main-navbar-notifications">
+
+										<div class="notification">
+											<div class="notification-title text-danger">CVS Commit Error</div>
+											<div class="notification-description"><strong>Error 500</strong>: 4 files cannot able to commit, please check out and commit.</div>
+											<div class="notification-ago">12h ago</div>
+											<div class="notification-icon fa fa-hdd-o bg-danger"></div>
+										</div> <!-- / .notification -->
+
+										<div class="notification">
+											<div class="notification-title text-info">CVS New Files</div>
+											<div class="notification-description">You have <strong>9</strong> new files.</div>
+											<div class="notification-ago">12h ago</div>
+											<div class="notification-icon fa fa-truck bg-info"></div>
+										</div> <!-- / .notification -->
+
+									</div> <!-- / .notifications-list -->
+									<!--  <a href="#" class="notifications-link">MORE NOTIFICATIONS</a> -->
+								</div> <!-- / .dropdown-menu -->
+							</li>
+							
+							<li>&nbsp;</li>
 							
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
@@ -95,43 +145,44 @@
 			<div class="menu-content top" id="menu-content-demo">
 				
 				<div>
-					<div class="text-bg"><span class="text-slim">Welcome,</span> <span class="text-semibold">Admin</span></div>
-
-					<img src="assets/demo/avatars/1.jpg" alt="" class="">
+					<div class="text-bg"><span class="text-slim">Welcome,</span> <span class="text-semibold">Kumar</span></div>
+					<!--  <img src="assets/demo/avatars/1.jpg" alt="" class=""> -->
+					<img src="https://vzweb2.verizon.com/sites/wireline/files/media/user/secondary/jpegphoto_4286368450.jpg?timestamp=1456231263" alt="" class="">
 					
-					<a href="#" class="close">&times;</a>
 				</div>
 			</div>
-			<ul class="navigation">
+			<ul id="mainMenu" class="navigation">
 				<li>
-					<a href="#" id="link1" class="links" data-showdiv="login"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Add User</span></a>
+					<a href="index.jsp"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Home</span></a>
 				</li>
 				<li>
-					<a href="#" id="link2" class="links" data-showdiv="group"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Create Group</span></a>
+					<a href="index.jsp?path=home/Quote"><i class="menu-icon fa fa-folder-o"></i><span class="mm-text">Quote</span></a>
 				</li>
 				<li>
-					<a href="#" id="link3" class="links" data-showdiv="group_access"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Add User in the group</span></a>
+					<a href="index.jsp?path=home/SFDC"><i class="menu-icon fa fa-folder-o"></i><span class="mm-text">SFDC</span></a>
 				</li>
-				
-				
-				
-				
-				
-				
-				
+				<li>
+					<a href="index.jsp?path=home/Contract"><i class="menu-icon fa fa-folder-o"></i><span class="mm-text">Contract</span></a>
+				</li>
+				<li>
+					<a href="index.jsp?path=home/Price"><i class="menu-icon fa fa-folder-o"></i><span class="mm-text">Price</span></a>
+				</li>
 				
 			</ul> <!-- / .navigation -->
-			
+			<!--  
+			<div class="menu-content">
+				<a href="pages-invoice.html" class="btn btn-primary btn-block btn-outline dark">Create Invoice</a>
+			</div>
+			 -->
 		</div> <!-- / #main-menu-inner -->
 	</div> <!-- / #main-menu -->
-<!-- /4. $MAIN_MENU -->
-
+	<!-- /4. $MAIN_MENU -->
 
 	<div id="content-wrapper">
 		
 		<ul class="breadcrumb breadcrumb-page" style="margin-top:-12px; float:left;">
 			<div class="breadcrumb-label text-light-gray" style="padding-right:10px;">You are here: </div>
-			<!-- <li class="active"><a href="index.jsp">Home</a></li> -->
+			<li class="active b-home"><a href="index.jsp">Home</a></li>
 		</ul>
 		<div class="page-header">
 			
@@ -183,56 +234,69 @@
 				</div>
 			</div>
 		</div> <!-- / .page-header -->
-
 		
+		<div id="divContentContainer">
+				
 		
-		
-		
-		<div id="divContentContainer">	
-			<div class="div" id="login" align="center" >
-							<h1>Access to User</h1>
-			      <form method="post" action="admin.jsp">
-			        <p><input type="text" name="vzid" value="" placeholder="Vzid"></p>
-			        
-			        </p>
-			        <p class="submit"><input type="submit" name="commit" value="Grant Access"></p>
-			         
-			      </form>
-							
-							
-							</div>
-							
-							<div class="div" id="group" align="center" >
-							<h1>Create Group</h1>
-			      <form method="post" action="admin.jsp">
-			        <p><input type="text" name="grpname" value="" placeholder="Group Name"></p>
-			        
-			        </p>
-			        <p class="submit"><input type="submit" name="commit" value="Create Group"></p>
-			         
-			      </form>
-							
-							
-							</div>
-							
-							<div class="div" id="group_access" align="center" >
-							<h1>Access of Group to User</h1>
-			      <form method="post" action="admin.jsp">
-			        <p><input type="text" name="grantprms" value="" placeholder="Vzid"></p>
-			        
-			        </p>
-			        <p class="submit"><input type="submit" name="commit" value="Grant Group Access"></p>
-			         
-			      </form>
-							
-							
-							</div>
+			<div class="dropzone-box dz-clickable" id="dropzonejs-example" style="min-height:84px;">
+				<div class="dz-default dz-message">
+					<i class="fa fa-cloud-upload"></i>
+					Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+				</div>
+				<form action="//dummy.html">
 					
+				</form>
 			</div>
+			
+			<br style="clear:both;" />
+			
+				<!-- 
+			<div class="col-md-3 col-sm-4">
+		      <p>
+		        <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-refresh fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-cog fa-spin fa-3x fa-fw margin-bottom"></i>
+		        <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+		      </p>
+		    </div>
+			 -->
+			 
+			<div id="divTblDocsLoading" style="display:none;">
+				<p><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> Loading... Please wait...</p>
+			</div>
+			
+			<!-- Primary table -->
+			<div id="divTblDocs" class="table-primary">
+							
+			</div>
+			
+			<table id="tblGetDocs" class="table table-striped table-hover" style="display:none;">
+				<thead>
+					<tr>
+						<th clas="no-sort">#</th>
+						
+						<th>Name</th>
+						<th>Modified</th>
+						<th>Modified By</th>
+						<th>Created</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<!-- / Primary table -->
+		</div>
 		
+		<div id="divSearchResultsLoading" style="display:none;">Loading...</div>
+		<div id="divSearchResults"></div>
 		
-		
-		
+		<div id="divContent" style="display:none;">
+			sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar
+			sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar
+			sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar
+			sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar sdgjasg a;sjgfd9a4jas asdflgkapsofgi ,masfg npoasfgi34masgfd asfg Kumar
+			
+		</div>
 
 		</div>
 	</div> <!-- / #content-wrapper -->
@@ -265,6 +329,8 @@
 		
 
 <!-- Start Modal Box -->
+
+<form id="file_upload_form" method="post" enctype="multipart/form-data" action="UploadServlet">			
 <div id="divUploadModal" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -273,14 +339,14 @@
 				<h3 class="modal-title">Upload Document</h3>
 			</div>
 			<div class="modal-body">
-				
-				<div id="upload-form" class="form-group" style="display: noned">
-					<input type="file" id="fileupload" name="img[]" class="file" data-url="/pixel-mw/UploadServlet" multiple />
+				<div id="upload-form" class="form-group">
+					<input type="file" id="fileupload" name="img[]" class="file" data-url="UploadServlet" multiple />
 					<div id="upload" style="display: none;">Uploading..</div>
 					<div id="message"></div>
 					
 					<div class="row" style="margin-bottom:10px;">
-						<input id="upload-btn" type="file" />
+					<!-- 	<input id="upload-btn" type="file" /> -->
+						<input name="file" id="upload-btn" type="file" />
 					</div>
 					
 					<div class="row" style="margin-bottom:10px;">
@@ -296,18 +362,27 @@
 			</div>
 			
 			<div class="modal-footer">
-				<button class="btn btn-default" id="btnUploadModalSubmit">Submit</button>
+				<!-- <button class="btn btn-default" id="btnUploadModalSubmit">Submit</button> -->
+				<input class="btn btn-default" type="submit" name="action" value="Upload" />
+				<iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
 				<button class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 
 		</div>
 	</div>
 </div>
+</form>
+<!-- End Modal Box -->
+		
+		
 
-
-
-
+<!-- Get jQuery from Google CDN -->
+<!--[if !IE]> -->
 	<script type="text/javascript"> window.jQuery || document.write('<script src="assets/javascripts/jquery.min.js">'+"<"+"/script>"); </script>
+<!-- <![endif]-->
+<!--[if lte IE 9]>
+	<script type="text/javascript"> window.jQuery || document.write('<script src="assets/javascripts/jquery1.8.3.min.js">'+"<"+"/script>"); </script>
+<![endif]-->
 
 
 <script src="assets/javascripts/jquery.dataTables.min.js"></script>
@@ -322,125 +397,19 @@
 <script src="assets/javascripts/pace_min.js"></script>
 
 <script type="text/javascript">
-
-	//$("#divContentContainer .div").not(':eq(0)').hide();
-	$("#divContentContainer .div").hide();
-	$(document).ready(function() { 
-	    $(".links").click(function() {
-	        //jQuery(this).next(".div").toggle();
-	        $("#divContentContainer .div").hide();
-	        
-	        var attr=$(this).attr("data-showdiv");
-	        $("#"+attr).show();
-	        $("ul.breadcrumb").find('li').remove();
-			$("ul.breadcrumb").append("<li class=\"active\">"+$(this).find('span').text()+"</li>");
-
-	        return false;   
-	    });
-	    
-	});
+	var _path = "<%= request.getParameter("path") %>";
+	_path = _path=="null" ? "home" : _path;
 	
-	
-
-
-	init.push(function () {
-		
-		$('#page-alerts-demo').on('click', 'button', function () {
-			var $this = $(this);
-			// Go to the top
-			$('html,body').animate({ scrollTop: 0 }, 500);
-			// Wait while page is scrolling
-			setTimeout(function () {
-				if ($this.hasClass('page-alerts-clear-btn')) {
-					PixelAdmin.plugins.alerts.clear(
-						true, // animate
-						'pa_page_alerts_default' // namespace
-					);
-				} else {
-					var options = {
-						type: $this.attr('data-type'),
-						namespace: 'pa_page_alerts_default'
-					};
-					if ($this.hasClass('auto-close-alert'))
-						options['auto_close'] = 3; // seconds
-					PixelAdmin.plugins.alerts.add($this.attr('data-text'), options);
-				}
-			}, 800);
-		});
-		
-		
-		$('#divCreate ul.dropdown-menu a').not('#linkCreateFolder').on('click', function() {
-			var $modal  = $('#divCreateDoc');
-			$modal.find('> div').addClass('modal-dialog modal-sm animated ' + $('#uidemo-modals-effects-select').find(":selected").attr('value'));
-			$modal.modal('show');
-		});
-		
-		
-		
-	});
-
-	$(document).ready(function(){
-		window.PixelAdmin.start(init);
-
-		//getDocs();
-		
-		$('input#upload-btn').pixelFileInput({ placeholder: 'No file selected...' });
-		
-		function init() {
-			document.getElementById('file_upload_form').onsubmit=function() {
-				document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
-			}
-		}
-		window.onload=init;
-			
-		//getDocs2();
-	    //var myHilitor = new Hilitor("divContent");
-		//myHilitor.apply("Kumar");
-		
-		
-		$('#linkCreateFolder').on('click', function () {
-			bootbox.prompt({
-				title: "Create a new folder",
-				callback: function(result) {
-					if (result === null) {                                             
-						//Cancelled                              
-					} else {
-						$('html,body').animate({ scrollTop: 0 }, 500);
-						var options = {
-							type: 'success',
-							namespace: 'pa_page_alerts_default'
-						};
-						options['auto_close'] = 5; // seconds
-						PixelAdmin.plugins.alerts.add("<i class=\"fa fa-check-circle\"></i> '"+ result +"' folder has been created successfully!", options);
-					}
-				},
-				className: "bootbox-sm"
-			});
-		});
-		
-		
-
-		$('#linkUpload').click(function(){
-			$('#divUploadModal').modal('show');
-			/*
-		  	$('.modal-body').empty();
-		  	var title = $(this).parent('a').attr("title");
-		  	$('.modal-title').html(title);
-		  	$($('#upload-form').html()).appendTo('.modal-body');
-		  	$('#myModal').modal({show:true});
-		  	*/
-		});
-		
-
-		
-
-	});
+	if(_path!="home"){
+		$("ul.breadcrumb").find('li.active').removeClass('active');
+		$("ul.breadcrumb").append("<li class=\"active\"><a href=\"index.jsp?path="+ _path +"\">"+_path.replace("home/","")+"</a></li>");
+	}
 	
 </script>
 
 <script src="assets/javascripts/custom.js"></script>
+<script src="assets/javascripts/home.js"></script>
 <script src="assets/javascripts/hilitor.js"></script>
 
-		
 </body>
 </html>

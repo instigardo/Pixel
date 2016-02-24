@@ -30,17 +30,17 @@ public class Solr {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public JsonArray JsonGet(String searchQuery) throws SQLException {		
+	public String JsonGet(String searchQuery) throws SQLException {		
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);
 		WebTarget target = client.target("http://113.128.161.154:8983/solr")
-				.path("techproducts").path("browse").queryParam("q", searchQuery).queryParam("wt", "json").queryParam("hl", "true").queryParam("hl.fl", "content").queryParam("fl", "text").queryParam("facet", "false").queryParam("responseHeader", "false");
+				.path("techproducts").path("browse").queryParam("q", searchQuery).queryParam("wt", "json").queryParam("hl", "true").queryParam("fl", "text").queryParam("facet", "false").queryParam("responseHeader", "false");
 		// getting String data
 		jsonString = target.request(MediaType.TEXT_PLAIN).get(String.class);
 		//jsonString="{ \"responseHeader\": { \"status\": 0, \"QTime\": 59, \"params\": { \"q\": \"Contract\", \"hl\": \"true\", \"fl\": \"text\", \"responseHeader\": \"false\", \"hl.fl\": \"content\", \"wt\": \"json\", \"facet\": \"false\" } }, \"response\": { \"numFound\": 5, \"start\": 0, \"docs\": [{}, {}, {}, {}, {}] }, \"highlighting\": { \"test1\": { \"content\": [\"\"] }, \"pdf1\": { \"content\": [\"\"] }, \"contract1\": { \"content\": [\"\"] }, \"html1\": { \"content\": [\"\"] }, \"J54996-00-2234_ESA_Master_SOF.pdfhtml1\": { \"content\": [\"\"] } }, \"spellcheck\": { \"suggestions\": [], \"collations\": [] } }";
 		JsonArray jarray = rebuildJson(jsonString);
 
-		return jarray;
+		return jarray.toString();
 	}
 	//	http://113.128.161.154:8983/solr/techproducts/browse?&q=any&wt=json&hl=true&hl.fl=content&fl=text&facet=false&responseHeader=false
 	public String getJsonString() {
@@ -100,6 +100,6 @@ public class Solr {
 
 	public static void main(String[] args) throws SQLException {
 		Solr ac=new Solr();
-		System.out.println(ac.JsonGet("jsonString"));
+		System.out.println(ac.JsonGet("Contract"));
 	}
 }

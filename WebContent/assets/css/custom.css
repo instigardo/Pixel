@@ -14,4 +14,6 @@
     color: inherit;
     transition: all .5s;
 }
-	
+
+.dataTable .cellName a{position:relative;}
+.dataTable .cellName div{}
