@@ -10,11 +10,10 @@ public class ConnectionGetter
 	public ConnectionGetter()
 	{
 	try{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521:xe", "hr", "password" );
+		Class.forName("com.mysql.jdbc.Driver");
+		con = DriverManager.getConnection("jdbc:mysql://113.128.166.27:3306/pixeltm?"+"user=user1&password=qwerty");
 					
-		
+		System.out.println("Connected");
 		
 		} 
 	catch (SQLException e)
@@ -32,4 +31,9 @@ public class ConnectionGetter
 	{
 		return con;
 	}
+	public static void main(String[] args) {
+		ConnectionGetter com=new ConnectionGetter();
+		
 	}
+	}
+

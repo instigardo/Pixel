@@ -26,7 +26,7 @@ import com.pixel.winExec.WinExec;
 @WebServlet("/UploadServlet")
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private ServletFileUpload uploader = null;
+	private ServletFileUpload uploader = null;
 	@Override
 	public void init() throws ServletException{
 		String pathname="C:\\";
@@ -36,8 +36,10 @@ public class UploadServlet extends HttpServlet {
 		fileFactory.setRepository(filesDir);
 		this.uploader = new ServletFileUpload(fileFactory);
 	}
-WinExec exec=new WinExec();
+	WinExec exec=new WinExec();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String getPath="path";
+		String getPath1=request.getParameter("fileName");
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
@@ -46,26 +48,29 @@ WinExec exec=new WinExec();
 			Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
 			while(fileItemsIterator.hasNext()){
 				FileItem fileItem = fileItemsIterator.next();
+
 				System.out.println("FieldName="+fileItem.getFieldName());
 				System.out.println("FileName="+fileItem.getName());
 				System.out.println("ContentType="+fileItem.getContentType());
 				System.out.println("Size in bytes="+fileItem.getSize());
-			//	C:\Users\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs
-				String fileName=fileItem.getName().substring(fileItem.getName().lastIndexOf("\\"));
-				File file = new File("\\\\113.128.161.154\\Users\\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs"+fileName);
-				System.out.println("Absolute Path at server="+file.getAbsolutePath());
-				fileItem.write(file);
-				
-				System.out.println("File "+fileItem.getName()+ " uploaded successfully.");
-				exec.indexDocs(fileName);
+				System.out.println("String="+fileItem.getString());
+				//	C:\Users\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs
+				if((fileItem.getFieldName()).equals("file")){
+					String fileName=fileItem.getName().substring(fileItem.getName().lastIndexOf("\\")+1);
+					File file = new File("\\\\113.128.161.154\\Users\\Administrator\\Downloads\\solr-5.4.1\\solr-5.4.1\\example\\exampledocs\\"+fileName);
+					System.out.println("Absolute Path at server="+file.getAbsolutePath());
+					fileItem.write(file);
 
+					System.out.println("File "+fileItem.getName()+ " uploaded successfully.");
+					exec.indexDocs(fileName,getPath);
+				}
 			}
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
